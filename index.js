@@ -7,7 +7,7 @@ function myParseInt(num, radix = 10) {
 
    if (num === "") {
     result = NaN;
-    return result;
+    
   }
 
 
@@ -22,17 +22,18 @@ function myParseInt(num, radix = 10) {
   }
 
   result = 0;
-  for (; i < num.length; i++) {
+  while(i < num.length) {
     let digit = num.charCodeAt(i);
 
     if (digit >= 48 && digit <= 57) digit -= 48;       // '0' - '9' → 0-9
     else if (digit >= 65 && digit <= 90) digit -= 55;  // 'A' - 'Z' → 10-35
     else if (digit >= 97 && digit <= 122) digit -= 87; // 'a' - 'z' → 10-35
-    else break; // Stop at invalid character
+    else digit = NaN; // Stop at invalid character
 
-    if (digit >= radix) break; // Stop if digit is not valid in given radix
+    if (digit >= radix) digit = NaN; // Stop if digit is not valid in given radix
 
     result = result * radix + digit;
+    i++;
   }
 
   return sign * result;
